@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-//PROBLEM STATEMENT: FIND THE STRING PERMUTATION WITH GREATER AMOUNT OF UNIQUE CHARACTERS AND RETURN ITS LENGTH 
+//PROBLEM STATEMENT: FIND THE STRING PERMUTATION WITH GREATEST AMOUNT OF UNIQUE CHARACTERS AND RETURN ITS LENGTH 
 
 class Solution {
     private String swapCharactersWithinString(String substringInOrder, int i, int j){
