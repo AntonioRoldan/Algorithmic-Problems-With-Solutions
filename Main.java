@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 
 
-//PROBLEM STATEMENT: FIND LONGEST SUBSEQUENCE OF STRING WITH UNIQUE CHARACTERS
+ //PROBLEM STATEMENT: FIND LONGEST PERMUTATION OF STRING WITH UNIQUE CHARACTERS
+
 
 // while(combinationsAmountOfElementsCurrentlySearching < s.length()){ //We take consecutive amountOfElementsCurrentlySearchingCombination elements while iterating through the array and add them to arrayOfSubstringsOfS
 //            for(int i = 0; i < arrayOfSubstringsOfS.size(); i++) {
