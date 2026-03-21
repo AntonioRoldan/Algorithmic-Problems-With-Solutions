@@ -4,36 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 
 
- //PROBLEM STATEMENT: FIND LONGEST PERMUTATION OF STRING WITH UNIQUE CHARACTERS
+//PROBLEM STATEMENT: FIND LONGEST PERMUTATION OF STRING WITH UNIQUE CHARACTERS AND RETURN ITS LENGTH 
 
-
-// while(combinationsAmountOfElementsCurrentlySearching < s.length()){ //We take consecutive amountOfElementsCurrentlySearchingCombination elements while iterating through the array and add them to arrayOfSubstringsOfS
-//            for(int i = 0; i < arrayOfSubstringsOfS.size(); i++) {
-//                for (int j = 0; j < arrayOfSubstringsOfS.get(i).length(); j++) {
-//                    //print(amountWeAreAccumulatingCount);
-//                    if (amountWeAreAccumulatingCount == combinationsAmountOfElementsCurrentlySearching) {
-//                        amountWeAreAccumulatingCount = amountWeAreAccumulatingCount - 1;
-//                        for (int k = j - amountWeAreAccumulatingCount - 1; k < j; k++) {
-//                            if (k < 0) {
-//                                continue;
-//                            }
-//                            if(smallerSizePermutationSubstringOfSContainer.length() >= combinationsAmountOfElementsCurrentlySearching){
-//                                smallerSizePermutationSubstringOfSContainer = "";
-//                            }
-//                            smallerSizePermutationSubstringOfSContainer += arrayOfSubstringsOfS.get(i).charAt(k);
-//                            print(smallerSizePermutationSubstringOfSContainer);
-//                        }
-//                    } else {
-//                        amountWeAreAccumulatingCount++;
-//                    }
-//                }
-//                arrayOfSubstringsOfS.add(smallerSizePermutationSubstringOfSContainer);
-//                smallerSizePermutationSubstringOfSContainer = "";
-//                amountWeAreAccumulatingCount = 1;
-//            }
-//            combinationsAmountOfElementsCurrentlySearching++;
-//            print(combinationsAmountOfElementsCurrentlySearching);
-//        }
 class Solution {
     private String swapCharactersWithinString(String substringInOrder, int i, int j){
         char ch[] = substringInOrder.toCharArray();
@@ -81,7 +53,7 @@ class Solution {
         return arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutationSubstring;
     }
 
-    private ArrayList<String> getPermutationsOfSubstringsOfString(String s){
+    private ArrayList<String> getPermutationsOfString(String s){
         ArrayList<String> arrayOfSubstringsOfS = new ArrayList<String>();
         ArrayList<String> arrayOfSmallerPermutationSubstringsOfS = new ArrayList<String>();
         ArrayList<String> arrayOfUniqueSubstringsOfS = new ArrayList<>();
@@ -118,7 +90,7 @@ class Solution {
         ArrayList<String> arrayOfUniqueSubstringsOfS = new ArrayList<>();
         List<List<String>> arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS = new ArrayList<List<String>>();
         String stringOfUniqueCharactersInS = "";
-        arrayOfUniqueSubstringsOfS = this.getPermutationsOfSubstringsOfString(s);
+        arrayOfUniqueSubstringsOfS = this.getPermutationsOfString(s);
         print(arrayOfUniqueSubstringsOfS.size());
         arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS = this.getArrayOfArraysOfEachPermutationWithOnlyUniqueCharacters(arrayOfUniqueSubstringsOfS);
         print(arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS);
