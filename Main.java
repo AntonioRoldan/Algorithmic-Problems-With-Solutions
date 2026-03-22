@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-//PROBLEM STATEMENT: FIND THE STRING PERMUTATION WITH GREATEST AMOUNT OF UNIQUE CHARACTERS AND RETURN ITS LENGTH 
+//PROBLEM STATEMENT: RETURN AMOUNT OF UNIQUE CHARACTERS IN PERMUTATION OR PERMUTATIONS WITH LARGEST AMOUNT OF UNIQUE CHARACTERS!
 
 class Solution {
     private String swapCharactersWithinString(String substringInOrder, int i, int j){
@@ -29,9 +29,9 @@ class Solution {
         return Collections.max(lengthsOfArrayWithinArrayInTheSameOrderAsArraysWithinArray);
     }
 
-    private List<List<String>> getArrayOfArraysOfEachPermutationWithOnlyUniqueCharacters(ArrayList<String> arrayOfUniqueSubstringsOfS){
-        //We can use this to check that all characters contained in each string of a list of strings are unique even if it works weirdly for our algorithm
-        //RETURN VALUE WILL BE THE FIRST ARRAY OF THIS ARRAY [[p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k], [p, e, w, k]]
+    private List<List<String>> getArrayOfArraysOfEachPermutationWithItsUniqueCharacters(ArrayList<String> arrayOfUniqueSubstringsOfS){
+        //We start by turning the string into a character array within the first for loop then we turn each character into a string and store it in a string array list within the second for loop and at the end of the first for loop we add it to our arrays of arrays list and empty the array of strings representing the permutation's characters
+        //We iterate through our array of arrays with permutation strings splitted into strings of characters in the last for loop which is an outer for loop and make them unique in characters then add them to another array of arrays of strings. (Another array list)
         List<String> arrayOfStringsOfAnIndividualPermutationSubstringsCharacters = new ArrayList<String>();
         ArrayList<List<String>> arrayOfArraysOfStringsOfAnIndividualPermutationSubstringsCharacters = new ArrayList<List<String>>();
         List<List<String>> arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutationSubstring = new ArrayList<List<String>>();
@@ -61,14 +61,16 @@ class Solution {
         int amountWeAreAccumulatingCount = 1;
         int indexOfCurrentlyIteratedAtSubstringOfS = 0;
         String smallerSizePermutationSubstringOfSContainer = "";
-        for(int i = 0; i < s.length(); i++){ //We find permutations iterating through each character and then within our inner loop we sap it for every other character within our substring
+        for(int i = 0; i < s.length(); i++){ //We find permutations iterating through each character and then within our inner loop we sap it for every other character within our substring except by itself
             for(int j = 0; j < s.length(); j++){
                 if(i == j){
                     continue;
                 }
                 arrayOfSubstringsOfS.add(this.swapCharactersWithinString(s, i, j));
             }//Abcd
-        }
+        } //Now because we know that the first three elements of any given set of total permutations will give us all permutations of three characters (the characters that our permutations are made of) we iterate through our array of substrings
+        //then through each string and then we extract its substrings of an ever increasing length from zero up to the total length of the string. incremmenting by one in our last third for loop and at the end of the second we add it and empty our container
+        //Then we join our two arrays, make their joined array unique and return it.
         for(int i = 0; i < arrayOfSubstringsOfS.size(); i++) {
             for (int j = 1; j < s.length(); j++) {
                 for (int k = 0; k < j; k++) {
@@ -92,7 +94,7 @@ class Solution {
         String stringOfUniqueCharactersInS = "";
         arrayOfUniqueSubstringsOfS = this.getPermutationsOfString(s);
         print(arrayOfUniqueSubstringsOfS.size());
-        arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS = this.getArrayOfArraysOfEachPermutationWithOnlyUniqueCharacters(arrayOfUniqueSubstringsOfS);
+        arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS = this.getArrayOfArraysOfEachPermutationWithItsUniqueCharacters(arrayOfUniqueSubstringsOfS);
         print(arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS);
 
         return getLengthOfLongestArrayInArrayOfArrays(arrayOfArraysOfUniqueSubstringsOfStringOfUniqueCharactersInS);
