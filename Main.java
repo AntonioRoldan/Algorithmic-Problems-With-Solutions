@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-//PROBLEM STATEMENT: FIND ALL PERMUTATIONS OF S AND RETURN LIST WITH THE UNIQUE CHARACTERS EACH PERMUTATION HAS
+//PROBLEM STATEMENT: FIND ALL PERMUTATIONS OF S AND RETURN LIST OF PERMUTATIONS WITH UNIQUE CHARACTERS AND PRINT LIST OF UNIQUE CHARACTERS EACH PERMUTATION HAS
 
 class Solution {
     private String swapCharactersWithinString(String substringInOrder, int i, int j){
@@ -29,15 +29,15 @@ class Solution {
         return Collections.max(lengthsOfArrayWithinArrayInTheSameOrderAsArraysWithinArray);
     }
 
-    private List<List<String>> getArrayOfArraysOfEachPermutationWithItsUniqueCharacters(ArrayList<String> arrayOfUniqueSubstringsOfS){
+    private List<List<String>> getArrayOfArraysOfUniqueCharactersOfEachPermutationInTheSameOrderAsPermutationsArray(ArrayList<String> arrayOfUniquePermutationsOfS){
         //We start by turning the string into a character array within the first for loop then we turn each character into a string and store it in a string array list within the second for loop and at the end of the first for loop we add it to our arrays of arrays list and empty the array of strings representing the permutation's characters
         //We iterate through our array of arrays with permutation strings splitted into strings of characters in the last for loop which is an outer for loop and make them unique in characters then add them to another array of arrays of strings. (Another array list)
         List<String> arrayOfStringsOfAnIndividualPermutationsCharacters = new ArrayList<String>();
         ArrayList<List<String>> arrayOfArraysOfStringsOfAnIndividualPermutationsCharacters = new ArrayList<List<String>>();
-        List<List<String>> arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutation = new ArrayList<List<String>>();
+        List<List<String>> arrayOfArraysOfUniqueCharactersStringsContainedInEachIndividualPermutation = new ArrayList<List<String>>();
         char[] characterArrayOfAnIndividualPermutationSubstring = {};
-        for(int i = 0; i < arrayOfUniqueSubstringsOfS.size(); i++){
-            characterArrayOfAnIndividualPermutationSubstring = arrayOfUniqueSubstringsOfS.get(i).toCharArray();
+        for(int i = 0; i < arrayOfUniquePermutationsOfS.size(); i++){
+            characterArrayOfAnIndividualPermutationSubstring = arrayOfUniquePermutationsOfS.get(i).toCharArray();
             for(int j = 0; j < characterArrayOfAnIndividualPermutationSubstring.length; j++){
                 arrayOfStringsOfAnIndividualPermutationsCharacters.add(Character.toString(characterArrayOfAnIndividualPermutationSubstring[j]));
             }
@@ -47,10 +47,20 @@ class Solution {
         //print(arrayOfArraysOfStringsOfAnIndividualPermutationSubstringsCharacters); //We print the arrays of strings of characters of each permutation substring that we have just calculated
         for(int i = 0; i < arrayOfArraysOfStringsOfAnIndividualPermutationsCharacters.size(); i++){
             arrayOfStringsOfAnIndividualPermutationsCharacters = new HashSet<String>(arrayOfArraysOfStringsOfAnIndividualPermutationsCharacters.get(i)).stream().toList(); //This time the variable we are filling is set to a list of unique characters strings of an individual's permutation's substring
-            arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutation.add(arrayOfStringsOfAnIndividualPermutationsCharacters);
+            arrayOfArraysOfUniqueCharactersStringsContainedInEachIndividualPermutation.add(arrayOfStringsOfAnIndividualPermutationsCharacters);
         }
-        //print(arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutationSubstring);
-        return arrayOfArraysOfUniqueCharactersStringsContainedInAnIndividualPermutation;
+        print(arrayOfArraysOfUniqueCharactersStringsContainedInEachIndividualPermutation);
+        return arrayOfArraysOfUniqueCharactersStringsContainedInEachIndividualPermutation;
+    }
+
+    private List<String> getPermutationsWithUniqueCharacters(List<List<String>> arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray, List<String> arrayOfUniquePermutationsOfS){
+        List<String> arrayOfPermutationsWithUniqueCharactersOfS = new ArrayList<String>();
+        for(int i = 0; i < arrayOfUniquePermutationsOfS.size(); i++){ //Since both arrays elements are in the same order with a perfect one-to-one match between them we iterate through one of the arrays and use its indices with the other one
+            if(arrayOfUniquePermutationsOfS.get(i).length() == arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray.get(i).size()){ //If a permutation is equal in length to its unique characters array it means its elements are all unique
+                arrayOfPermutationsWithUniqueCharactersOfS.add(arrayOfUniquePermutationsOfS.get(i));
+            }
+        }
+        return arrayOfPermutationsWithUniqueCharactersOfS;
     }
 
     private ArrayList<String> getPermutationsOfString(String s){
@@ -83,18 +93,18 @@ class Solution {
         arrayOfPermutationsOfS.addAll(arrayOfSmallerPermutationsOfS);
         //Now we have just calculated above the permutations of substrings of the same length as the original string, their smaller substrings constitute the remaining permutations
         arrayOfUniquePermutationsOfS = new ArrayList<String>(new HashSet<String>(arrayOfPermutationsOfS)); //We then delete occurrences
-
+        print(arrayOfPermutationsOfS);
         return arrayOfUniquePermutationsOfS;
     }
 
-    public List<List<String>> lengthOfLongestSubstring(String s) {
+    public List<String> lengthOfLongestSubstring(String s) {
         //Find permutations of a string
         ArrayList<String> arrayOfUniquePermutationsOfSWithoutDuplicates = new ArrayList<>();
         List<List<String>> arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS = new ArrayList<List<String>>();
         arrayOfUniquePermutationsOfSWithoutDuplicates = this.getPermutationsOfString(s);
         print(arrayOfUniquePermutationsOfSWithoutDuplicates);
-        arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS = this.getArrayOfArraysOfEachPermutationWithItsUniqueCharacters(arrayOfUniquePermutationsOfSWithoutDuplicates);
-        return arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS;
+        arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS = this.getArrayOfArraysOfUniqueCharactersOfEachPermutationInTheSameOrderAsPermutationsArray(arrayOfUniquePermutationsOfSWithoutDuplicates);
+        return this.getPermutationsWithUniqueCharacters(arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS, arrayOfUniquePermutationsOfSWithoutDuplicates);
     }
 }
 
@@ -103,7 +113,7 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         Solution solution = new Solution();
-        System.out.println(solution.lengthOfLongestSubstring("abcd"));
+        System.out.println(solution.lengthOfLongestSubstring("qwwwwerrrty"));
 
     }
 }
