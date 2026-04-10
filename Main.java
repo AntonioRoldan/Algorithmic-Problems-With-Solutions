@@ -1,12 +1,11 @@
+package CompetitiveProgrammingSolutions;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-
-//PROBLEM STATEMENT: FIND ALL PERMUTATIONS OF S AND RETURN LIST OF PERMUTATIONS WITH UNIQUE CHARACTERS AND PRINT LIST OF UNIQUE CHARACTERS EACH PERMUTATION HAS
-
-class Solution {
+class PermutationsWithUniqueCharactersSolution {
     private String swapCharactersWithinString(String substringInOrder, int i, int j){
         char ch[] = substringInOrder.toCharArray();
         char temp = ch[i];
@@ -18,6 +17,7 @@ class Solution {
     //We cannot use a hashset here because that would just remove repeated occurrences of characters rather than strings with repeated occurrences of characters
 
     private <T> void print(T elementToBePrinted){
+
         System.out.println(elementToBePrinted);
     }
 
@@ -55,11 +55,16 @@ class Solution {
 
     private List<String> getPermutationsWithUniqueCharacters(List<List<String>> arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray, List<String> arrayOfUniquePermutationsOfS){
         List<String> arrayOfPermutationsWithUniqueCharactersOfS = new ArrayList<String>();
-        for(int i = 0; i < arrayOfUniquePermutationsOfS.size(); i++){ //Since both arrays elements are in the same order with a perfect one-to-one match between them we iterate through one of the arrays and use its indices with the other one
-            if(arrayOfUniquePermutationsOfS.get(i).length() == arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray.get(i).size()){ //If a permutation is equal in length to its unique characters array it means its elements are all unique
-                arrayOfPermutationsWithUniqueCharactersOfS.add(arrayOfUniquePermutationsOfS.get(i));
+        String joinedPermutationString = "";
+        String tempContainerForStringToBeJoinedToPermutationString = "";
+        for(int i = 0; i < arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray.size(); i++){ //Since both arrays elements are in the same order with a perfect one-to-one match between them we iterate through one of the arrays and use its indices with the other one
+            for(int j = 0; j < arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray.get(i).size(); j++){
+                joinedPermutationString = String.join("", arrayOfArraysOfUniqueCharactersWithinEachPermutationInTheSameOrderAsPermutationsArray.get(i));
             }
+            arrayOfPermutationsWithUniqueCharactersOfS.add(joinedPermutationString);
+            joinedPermutationString = "";
         }
+        print(arrayOfPermutationsWithUniqueCharactersOfS);
         return arrayOfPermutationsWithUniqueCharactersOfS;
     }
 
@@ -107,14 +112,3 @@ class Solution {
         return this.getPermutationsWithUniqueCharacters(arrayOfArraysOfUniqueCharactersInEachPermutationOfStringS, arrayOfUniquePermutationsOfSWithoutDuplicates);
     }
 }
-
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        Solution solution = new Solution();
-        System.out.println(solution.lengthOfLongestSubstring("qwwwwerrrty"));
-
-    }
-}
-
